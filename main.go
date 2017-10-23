@@ -51,21 +51,21 @@ func gradientDescentThetaUpdate(dataPoints *mat.Dense, theta *mat.VecDense, desc
 		}
 	}
 
-	// Update thetas and check totalAcc to see if anything is changing still
-	totalAccumulation := 0.0
+	// Update theta and check totalChange to see if anything is changing still
+	totalChange := 0.0
 
 	for t := 0; t < numTheta; t++ {
-		accumulation := multiplier * accumulations.At(t, 0)
+		change := multiplier * accumulations.At(t, 0)
 
-		// Update accumulation for theta
-		theta.SetVec(t, theta.At(t, 0)-accumulation)
+		// Update change for theta
+		theta.SetVec(t, theta.At(t, 0)-change)
 
-		// Update total acc
-		totalAccumulation += math.Abs(accumulation)
+		// Update total change
+		totalChange += math.Abs(change)
 	}
 
 	// Stop if change is smaller than epsilon
-	return totalAccumulation < epsilon
+	return totalChange < epsilon
 }
 
 // GradientDescent calculates best theta values for a matrix of datapoints containing x1...xn, y as row data
